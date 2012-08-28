@@ -1,12 +1,25 @@
 Revision history for Business-OnlinePayment-CyberSource
 
+3.000003  2012-08-28
+	- fix licensing
+	- release to cpan
+
+3.000002  2012-08-24
+	- Fixed logic error preventing follow-on credits from working properly
+	- Fixed Logic errors with expiration dates
+	- Added support for expiration dates with MMYY format
+	- various other bug fixes
+
+3.000000  2012-08-16
+	- Refactored code to use Business::CyberSource as the underlying engine
+
 2.01      2011-07-25
 	- use dist-zilla
 	- mostly bring up to perl-critic compliance
 	- allow passing a config hash on object initialization
 	- fix to work with CyberSource Simple API 5.0
 	- new maintainership Caleb Cushing
-	
+
 2.00	2007-04-21
 	- release of 2.00, no changes noted, and I'm way to lazy to look at diff's
 
