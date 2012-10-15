@@ -15,7 +15,7 @@ use MooseX::Types::Moose qw(Bool HashRef Int Str);
 use MooseX::Types::Common::String qw(NonEmptySimpleStr);
 
 # ABSTRACT:  CyberSource Client object  for Business::OnlinePayment::CyberSource
-our $VERSION = '3.000008'; # VERSION
+our $VERSION = '3.000009'; # VERSION
 
 #### Subroutine Definitions ####
 
@@ -635,7 +635,7 @@ Business::OnlinePayment::CyberSource::Client - CyberSource Client object  for Bu
 
 =head1 VERSION
 
-version 3.000008
+version 3.000009
 
 =head1 SYNOPSIS
 
