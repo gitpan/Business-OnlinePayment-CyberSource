@@ -6,17 +6,16 @@ use warnings;
 
 use Moose;
 use Class::Load 0.20 qw(load_class);
-use Data::Dump 'dump';
 use MooseX::Aliases;
 use MooseX::StrictConstructor;
 use Try::Tiny;
-use Business::CyberSource::Client;
+use Business::CyberSource::Client 0.006009;
 use MooseX::Types::CyberSource qw(AVSResult);
 use MooseX::Types::Moose qw(Bool HashRef Int Str);
 use MooseX::Types::Common::String qw(NonEmptySimpleStr);
 
 # ABSTRACT:  CyberSource Client object  for Business::OnlinePayment::CyberSource
-our $VERSION = '3.000007'; # VERSION
+our $VERSION = '3.000008'; # VERSION
 
 #### Subroutine Definitions ####
 
@@ -81,18 +80,16 @@ sub _authorize          {
 	try {
 		my $response = $self->run_transaction( $request );
 
-		if ( $response->is_accepted() ) {
+		if ( $response->is_accept() ) {
 			$self->is_success( 1 );
-
 		}
 		else {
 			$self->set_error_message( $response->reason_text() );
 		}
 
-		if ( $response->does(
-				'Business::CyberSource::Response::Role::Authorization'
-				)
-			) {
+  my $role       = 'Business::CyberSource::Response::Role::Authorization';
+
+		if ( $response->does( $role ) ) {
 			$self->authorization( $response->auth_code() )
 				if $response->has_auth_code;
 
@@ -106,9 +103,12 @@ sub _authorize          {
 		$self->_fill_fields( $response );
 	}
 	catch {
-		$message = shift;
+		my $e          = shift;
 
-		$self->set_error_message( "$message" );
+		# Rethrow if $e is not a string
+		$e->throw() if ref $e ne '';
+
+  $self->set_error_message( $e );
 	};
 
 	return $self->is_success();
@@ -152,7 +152,7 @@ sub capture            {
 	try {
 		my $response      = $self->run_transaction( $request );
 
-		if ( $response->is_success() ) {
+		if ( $response->is_accept() ) {
 			$self->is_success ( 1 );
 		}
 		else {
@@ -162,9 +162,12 @@ sub capture            {
 		$self->_fill_fields( $response );
 	}
 	catch {
-		$message       = shift;
+		my $e          = shift;
 
-		$self->set_error_message( "$message" );
+		# Rethrow if $e is not a string
+		$e->throw() if ref $e ne '';
+
+  $self->set_error_message( $e );
 	};
 
 	return $self->is_success();
@@ -210,7 +213,7 @@ sub credit             {
 	try {
 		my $response      = $self->run_transaction( $request );
 
-		if ( $response->is_success() ) {
+		if ( $response->is_accept() ) {
 			$self->is_success ( 1 );
 		}
 		else {
@@ -220,9 +223,12 @@ sub credit             {
 		$self->_fill_fields( $response );
 	}
 	catch {
-		$message       = shift;
+		my $e          = shift;
 
-		$self->set_error_message( "$message" );
+		# Rethrow if $e is not a string
+		$e->throw() if ref $e ne '';
+
+  $self->set_error_message( $e );
 	};
 
 	return $self->is_success();
@@ -262,7 +268,7 @@ sub auth_reversal {
 	try {
 		my $response        = $self->run_transaction( $request );
 
-		if ( $response->is_success() ) {
+		if ( $response->is_accept() ) {
 			$self->is_success ( 1 );
 		}
 		else {
@@ -272,9 +278,12 @@ sub auth_reversal {
 		$self->_fill_fields( $response );
 	}
 	catch {
-		$message       = shift;
+		my $e          = shift;
 
-		$self->set_error_message( "$message" );
+  # Rethrow if $e is not a string
+  $e->throw() if ref $e ne '';
+
+		$self->set_error_message( $e );
 	};
 
 	return $self->is_success();
@@ -626,7 +635,7 @@ Business::OnlinePayment::CyberSource::Client - CyberSource Client object  for Bu
 
 =head1 VERSION
 
-version 3.000007
+version 3.000008
 
 =head1 SYNOPSIS
 
