@@ -11,7 +11,7 @@ use MooseX::Types::Moose qw(Str);
 use MooseX::Types::Common::String qw(NonEmptySimpleStr);
 
 # ABSTRACT:  Error reporting role for BOP::CyberSource
-our $VERSION = '3.000009'; # VERSION
+our $VERSION = '3.000010'; # TRIAL VERSION
 
 #### Subroutine Definitions ####
 
@@ -51,7 +51,7 @@ Business::OnlinePayment::CyberSource::Role::ErrorReporting - Error reporting rol
 
 =head1 VERSION
 
-version 3.000009
+version 3.000010
 
 =head1 SYNOPSIS
 
@@ -83,7 +83,7 @@ This role provides consumers with an errors array attribute and supporting metho
 =head1 BUGS
 
 Please report any bugs or feature requests on the bugtracker website
-https://github.com/hgdev/Business-OnlinePayment-CyberSource/issues
+https://github.com/hostgator/Business-OnlinePayment-CyberSource/issues
 
 When submitting a bug or request, please include a test-file or a
 patch to an existing test-file that illustrates the bug or desired

@@ -8,7 +8,7 @@ use namespace::autoclean;
 use Moose::Role;
 
 # ABSTRACT:  Input handling convenience methods for Business::OnlinePayment::CyberSource
-our $VERSION = '3.000009'; # VERSION
+our $VERSION = '3.000010'; # TRIAL VERSION
 
 #### Subroutine Definitions ####
 
@@ -44,7 +44,7 @@ Business::OnlinePayment::CyberSource::Role::InputHandling - Input handling conve
 
 =head1 VERSION
 
-version 3.000009
+version 3.000010
 
 =head1 SYNOPSIS
 
@@ -83,7 +83,7 @@ Returns:  A reference to the supplied hash
 =head1 BUGS
 
 Please report any bugs or feature requests on the bugtracker website
-https://github.com/hgdev/Business-OnlinePayment-CyberSource/issues
+https://github.com/hostgator/Business-OnlinePayment-CyberSource/issues
 
 When submitting a bug or request, please include a test-file or a
 patch to an existing test-file that illustrates the bug or desired

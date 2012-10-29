@@ -14,7 +14,7 @@ use MooseX::Types::Moose qw(Bool HashRef Int);
 use MooseX::Types::Common::String qw(NonEmptySimpleStr);
 
 # ABSTRACT:  CyberSource backend for Business::OnlinePayment
-our $VERSION = '3.000009'; # VERSION
+our $VERSION = '3.000010'; # TRIAL VERSION
 
 extends 'Business::OnlinePayment';
 
@@ -57,7 +57,7 @@ Business::OnlinePayment::CyberSource - CyberSource backend for Business::OnlineP
 
 =head1 VERSION
 
-version 3.000009
+version 3.000010
 
 =head1 SYNOPSIS
 
@@ -209,7 +209,7 @@ L<Business::OnlinePayment>
 =head1 BUGS
 
 Please report any bugs or feature requests on the bugtracker website
-https://github.com/hgdev/Business-OnlinePayment-CyberSource/issues
+https://github.com/hostgator/Business-OnlinePayment-CyberSource/issues
 
 When submitting a bug or request, please include a test-file or a
 patch to an existing test-file that illustrates the bug or desired
