@@ -5,17 +5,23 @@ author:
   - 'Caleb Cushing <xenoterracide@gmail.com>'
   - 'Peter Bowen <peter@bowenfamily.org>'
 build_requires:
-  File::Find: 0
-  File::Temp: 0
-  Test::More: 0
+  Class::Load: '0.20'
+  ExtUtils::MakeMaker: '0'
+  File::Spec: '0'
+  File::Spec::Functions: '0'
+  IO::Handle: '0'
+  IPC::Open3: '0'
+  List::Util: '0'
+  Test::More: '0'
+  version: '0'
 configure_requires:
-  ExtUtils::MakeMaker: 6.30
+  ExtUtils::MakeMaker: '6.30'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300028, CPAN::Meta::Converter version 2.120921'
+generated_by: 'Dist::Zilla version 5.013, CPAN::Meta::Converter version 2.133380'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
-  version: 1.4
+  version: '1.4'
 name: Business-OnlinePayment-CyberSource
 no_index:
   file:
@@ -23,41 +29,45 @@ no_index:
 provides:
   Business::OnlinePayment::CyberSource:
     file: lib/Business/OnlinePayment/CyberSource.pm
-    version: 3.000011
+    version: '3.000008'
   Business::OnlinePayment::CyberSource::Client:
     file: lib/Business/OnlinePayment/CyberSource/Client.pm
-    version: 3.000011
+    version: '3.000008'
   Business::OnlinePayment::CyberSource::Role::ErrorReporting:
     file: lib/Business/OnlinePayment/CyberSource/Role/ErrorReporting.pm
-    version: 3.000011
+    version: '3.000008'
   Business::OnlinePayment::CyberSource::Role::InputHandling:
     file: lib/Business/OnlinePayment/CyberSource/Role/InputHandling.pm
-    version: 3.000011
+    version: '3.000008'
   Business::OnlinePayment::CyberSource::Role::TransactionHandling:
     file: lib/Business/OnlinePayment/CyberSource/Role/TransactionHandling.pm
-    version: 3.000011
+    version: '3.000008'
 requires:
-  Business::CyberSource: 0.006000
-  Business::CyberSource::Client: 0.007006
-  Business::OnlinePayment: 0
-  Class::Load: 0.20
-  Data::Dump: 0
-  DateTime: 0
-  Exception::Base: 0
-  Moose: 0
-  Moose::Role: 0
-  MooseX::Aliases: 0
-  MooseX::NonMoose: 0
-  MooseX::StrictConstructor: 0
-  MooseX::Types::Common::String: 0
-  MooseX::Types::CyberSource: 0
-  MooseX::Types::Moose: 0
-  Try::Tiny: 0
-  namespace::autoclean: 0
-  perl: 5.010
-  strict: 0
-  warnings: 0
+  Business::CyberSource: '0.009000'
+  Business::CyberSource::Client: '0'
+  Business::OnlinePayment: '0'
+  DateTime: '0'
+  Exception::Base: '0'
+  Module::Runtime: '0'
+  Moose: '0'
+  Moose::Role: '0'
+  MooseX::Aliases: '0'
+  MooseX::NonMoose: '0'
+  MooseX::StrictConstructor: '0'
+  MooseX::Types::Common::String: '0'
+  MooseX::Types::CyberSource: '0'
+  MooseX::Types::Moose: '0'
+  Try::Tiny: '0'
+  namespace::autoclean: '0'
+  perl: '5.010'
+  strict: '0'
+  warnings: '0'
 resources:
-  bugtracker: https://github.com/hostgator/Business-OnlinePayment-CyberSource/issues
-  repository: git://github.com/hostgator/Business-OnlinePayment-CyberSource.git
-version: 3.000011
+  bugtracker: https://github.com/xenoterracide/business-onlinepayment-cybersource/issues
+  homepage: https://metacpan.org/dist/Business-OnlinePayment-CyberSource
+  repository: git://github.com/xenoterracide/business-onlinepayment-cybersource.git
+version: '3.000008'
+x_contributors:
+  - 'Jad Wauthier <jadrien.wauthier@gmail.com>'
+  - 'Jad Wauthier <jwauthier@hostgator.com>'
+  - 'Peter A. Bowen <peter@bowenfamily.org>'

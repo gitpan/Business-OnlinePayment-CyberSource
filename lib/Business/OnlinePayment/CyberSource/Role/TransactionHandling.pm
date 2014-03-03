@@ -12,7 +12,7 @@ use Try::Tiny;
 use Business::OnlinePayment::CyberSource::Client;
 
 # ABSTRACT:  Transaction handling role for BOP::CyberSource
-our $VERSION = '3.000011'; # VERSION
+our $VERSION = '3.000008'; # VERSION
 
 #### Subroutine Definitions ####
 
@@ -74,8 +74,7 @@ sub submit             {
 	$self->transaction_type( $content->{type} );
 
 	if ( $content->{action} =~ qr/^authorization\ only|normal\ authorization|credit$/ix ) {
-		given ( $content->{type} ) {
-			  when ( /^CC$/x ) {
+		if ( $content->{type} =~ /^CC$/x ) {
 				#Credit Card information
 				my $expiration = $self->_expiration_to_datetime( $content->{expiration} );
 
@@ -83,10 +82,9 @@ sub submit             {
 
 				$data->{card}->{expiration}     = $expiration if $expiration;
 				$data->{card}->{security_code}  = $content->{cvv2} if $content->{cvv2};
-			}
-			default {
+		}
+		else {
 				Exception::Base->throw("$_ is an invalid payment type");
-			}
 		}
 	}
 
@@ -95,25 +93,23 @@ sub submit             {
 
 	my $result                   = 0;
 
-	given ( $content->{action} ) {
-		when ( /^authorization\ only$/ix ) {
+	if ( $content->{action} =~ /^authorization\ only$/ix ) { ## no critic ( ControlStructures::ProhibitCascadingIfElse )
 			$result = $self->authorize( $data );
-		}
-		when ( /^normal\ authorization$/ix ) {
+	}
+	elsif ( $content->{action} =~ /^normal\ authorization$/ix ) {
 			$result = $self->sale( $data );
-		}
-		when ( /^post\ authorization$/ix ) {
+	}
+	elsif( $content->{action} =~ /^post\ authorization$/ix ) {
 			$result = $self->capture( $data );
-		}
-		when ( /^void$/ix ) {
+	}
+	elsif( $content->{action} =~ /^void$/ix ) {
 			$result = $self->auth_reversal( $data );
-		}
-		when ( /^credit$/ix ) {
+	}
+	elsif( $content->{action} =~  /^credit$/ix ) {
 			$result = $self->credit( $data );
-		}
-		default {
+	}
+	else {
 			Exception::Base->throw( "$_ is an invalid action" );
-		}
 	}
 
 	return $result;
@@ -203,7 +199,7 @@ Business::OnlinePayment::CyberSource::Role::TransactionHandling - Transaction ha
 
 =head1 VERSION
 
-version 3.000011
+version 3.000008
 
 =head1 SYNOPSIS
 
@@ -229,7 +225,7 @@ This role provides consumers with methods for sending transaction requests to Cy
 =head1 BUGS
 
 Please report any bugs or feature requests on the bugtracker website
-https://github.com/hostgator/Business-OnlinePayment-CyberSource/issues
+https://github.com/xenoterracide/business-onlinepayment-cybersource/issues
 
 When submitting a bug or request, please include a test-file or a
 patch to an existing test-file that illustrates the bug or desired
@@ -255,7 +251,7 @@ Peter Bowen <peter@bowenfamily.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by L<HostGator.com|http://www.hostgator.com>.
+This software is copyright (c) 2014 by Hostgator.com.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

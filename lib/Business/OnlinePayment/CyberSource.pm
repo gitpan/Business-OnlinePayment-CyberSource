@@ -6,7 +6,6 @@ use warnings;
 use namespace::autoclean;
 
 use Moose;
-use Data::Dump 'dump';
 use Exception::Base;
 use MooseX::NonMoose;
 use MooseX::StrictConstructor;
@@ -14,7 +13,7 @@ use MooseX::Types::Moose qw(Bool HashRef Int);
 use MooseX::Types::Common::String qw(NonEmptySimpleStr);
 
 # ABSTRACT:  CyberSource backend for Business::OnlinePayment
-our $VERSION = '3.000011'; # VERSION
+our $VERSION = '3.000008'; # VERSION
 
 extends 'Business::OnlinePayment';
 
@@ -57,7 +56,7 @@ Business::OnlinePayment::CyberSource - CyberSource backend for Business::OnlineP
 
 =head1 VERSION
 
-version 3.000011
+version 3.000008
 
 =head1 SYNOPSIS
 
@@ -209,7 +208,7 @@ L<Business::OnlinePayment>
 =head1 BUGS
 
 Please report any bugs or feature requests on the bugtracker website
-https://github.com/hostgator/Business-OnlinePayment-CyberSource/issues
+https://github.com/xenoterracide/business-onlinepayment-cybersource/issues
 
 When submitting a bug or request, please include a test-file or a
 patch to an existing test-file that illustrates the bug or desired
@@ -235,7 +234,7 @@ Peter Bowen <peter@bowenfamily.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by L<HostGator.com|http://www.hostgator.com>.
+This software is copyright (c) 2014 by Hostgator.com.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

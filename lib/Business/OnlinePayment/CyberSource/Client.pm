@@ -5,17 +5,17 @@ use strict;
 use warnings;
 
 use Moose;
-use Class::Load 0.20 qw(load_class);
+use Module::Runtime qw( use_module );
 use MooseX::Aliases;
 use MooseX::StrictConstructor;
 use Try::Tiny;
-use Business::CyberSource::Client 0.007006;
+use Business::CyberSource::Client;
 use MooseX::Types::CyberSource qw(AVSResult);
 use MooseX::Types::Moose qw(Bool HashRef Int Str);
 use MooseX::Types::Common::String qw(NonEmptySimpleStr);
 
 # ABSTRACT:  CyberSource Client object  for Business::OnlinePayment::CyberSource
-our $VERSION = '3.000011'; # VERSION
+our $VERSION = '3.000008'; # VERSION
 
 #### Subroutine Definitions ####
 
@@ -65,7 +65,7 @@ sub _authorize          {
 	}
 
 	my $request         = try {
-		load_class( $class )->new( $data );
+		use_module( $class )->new( $data );
 	}
 	catch {
 		$message = shift;
@@ -80,31 +80,34 @@ sub _authorize          {
 	try {
 		my $response = $self->run_transaction( $request );
 
-		if ( $response->is_accept() ) {
+		if ( $response->is_accepted() ) {
 			$self->is_success( 1 );
+
 		}
 		else {
 			$self->set_error_message( $response->reason_text() );
 		}
 
-		$self->authorization( $response->auth->auth_code() )
-			if $response->auth->has_auth_code;
+		if ( $response->does(
+				'Business::CyberSource::Response::Role::Authorization'
+				)
+			) {
+			$self->authorization( $response->auth_code() )
+				if $response->has_auth_code;
 
-		$self->cvv2_response( $response->auth->cv_code() )
-			if $response->auth->has_cv_code();
+			$self->cvv2_response( $response->cv_code() )
+				if $response->has_cv_code();
 
-		$self->avs_code( $response->auth->avs_code() )
-			if $response->auth->has_avs_code;
+			$self->avs_code( $response->avs_code() )
+				if $response->has_avs_code;
+		}
 
 		$self->_fill_fields( $response );
 	}
 	catch {
-		my $e          = shift;
+		$message = shift;
 
-		# Rethrow if $e is not a string
-		$e->throw() if ( ref $e ne '' );
-
-  $self->set_error_message( $e );
+		$self->set_error_message( "$message" );
 	};
 
 	return $self->is_success();
@@ -133,7 +136,7 @@ sub capture            {
 	Exception::Base->throw( $message ) if $message;
 
 	my $request         = try {
-		load_class( 'Business::CyberSource::Request::Capture' )->new( $data );
+		use_module( 'Business::CyberSource::Request::Capture' )->new( $data );
 	}
 	catch {
 		$message          = shift;
@@ -148,7 +151,7 @@ sub capture            {
 	try {
 		my $response      = $self->run_transaction( $request );
 
-		if ( $response->is_accept() ) {
+		if ( $response->is_success() ) {
 			$self->is_success ( 1 );
 		}
 		else {
@@ -158,12 +161,9 @@ sub capture            {
 		$self->_fill_fields( $response );
 	}
 	catch {
-		my $e          = shift;
+		$message       = shift;
 
-		# Rethrow if $e is not a string
-		$e->throw() if ref $e ne '';
-
-  $self->set_error_message( $e );
+		$self->set_error_message( "$message" );
 	};
 
 	return $self->is_success();
@@ -194,7 +194,7 @@ sub credit             {
 	Exception::Base->throw( $message ) if $message;
 
 	my $request         = try {
-		load_class( 'Business::CyberSource::Request::Credit' )->new( $data );
+		use_module( 'Business::CyberSource::Request::Credit' )->new( $data );
 	}
 	catch {
 		$message          = shift;
@@ -209,8 +209,7 @@ sub credit             {
 	try {
 		my $response      = $self->run_transaction( $request );
 
-
-		if ( $response->is_accept() ) {
+		if ( $response->is_success() ) {
 			$self->is_success ( 1 );
 		}
 		else {
@@ -220,12 +219,9 @@ sub credit             {
 		$self->_fill_fields( $response );
 	}
 	catch {
-		my $e          = shift;
+		$message       = shift;
 
-		# Rethrow if $e is not a string
-		$e->throw() if ref $e ne '';
-
-  $self->set_error_message( $e );
+		$self->set_error_message( "$message" );
 	};
 
 	return $self->is_success();
@@ -254,7 +250,7 @@ sub auth_reversal {
 	Exception::Base->throw( $message ) if $message;
 
 	my $request         = try {
-		load_class( 'Business::CyberSource::Request::AuthReversal' )->new( $data );
+		use_module( 'Business::CyberSource::Request::AuthReversal' )->new( $data );
 	}
 	catch {
 		$self->set_error_message( "$_" );
@@ -265,7 +261,7 @@ sub auth_reversal {
 	try {
 		my $response        = $self->run_transaction( $request );
 
-		if ( $response->is_accept() ) {
+		if ( $response->is_success() ) {
 			$self->is_success ( 1 );
 		}
 		else {
@@ -275,12 +271,9 @@ sub auth_reversal {
 		$self->_fill_fields( $response );
 	}
 	catch {
-		my $e          = shift;
+		$message       = shift;
 
-  # Rethrow if $e is not a string
-  $e->throw() if ref $e ne '';
-
-		$self->set_error_message( $e );
+		$self->set_error_message( "$message" );
 	};
 
 	return $self->is_success();
@@ -296,13 +289,11 @@ sub _fill_fields {
 
 	return unless ( $response and $response->isa( 'Business::CyberSource::Response' ) );
 
-	my $trace               = $response->trace();
-
-	if ( $trace ) {
-		$res                  = $trace->response();
+	if ( $response->trace() ) {
+		$res           = $response->trace->response();
 	}
 	else {
-		Exception::Base->throw( 'No trace found' );
+		Exception::Base->throw( 'Request failed' );
 	}
 
 	my $h                   = $res->headers();
@@ -347,9 +338,9 @@ sub _build_client { ## no critic ( Subroutines::ProhibitUnusedPrivateSubroutines
 	my $test                 = $self->test_transaction();
 
 	my $data                 = {
-		username               => $username,
-		password               => $password,
-		production             => ! $test,
+		user => $username,
+		pass => $password,
+		test => $test,
 	};
 
 	my $client               = Business::CyberSource::Client->new( $data );
@@ -634,7 +625,7 @@ Business::OnlinePayment::CyberSource::Client - CyberSource Client object  for Bu
 
 =head1 VERSION
 
-version 3.000011
+version 3.000008
 
 =head1 SYNOPSIS
 
@@ -902,7 +893,7 @@ Returns:
 =head1 BUGS
 
 Please report any bugs or feature requests on the bugtracker website
-https://github.com/hostgator/Business-OnlinePayment-CyberSource/issues
+https://github.com/xenoterracide/business-onlinepayment-cybersource/issues
 
 When submitting a bug or request, please include a test-file or a
 patch to an existing test-file that illustrates the bug or desired
@@ -928,7 +919,7 @@ Peter Bowen <peter@bowenfamily.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2012 by L<HostGator.com|http://www.hostgator.com>.
+This software is copyright (c) 2014 by Hostgator.com.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
