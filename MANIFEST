@@ -16,6 +16,7 @@ t/00-compile.t
 t/00-report-prereqs.t
 t/authorization-only.t
 t/credit.t
+t/die-on-error.t
 t/expiration-conversion.t
 t/normal-authorization.t
 t/post-authorization.t

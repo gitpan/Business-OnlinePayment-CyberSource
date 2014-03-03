@@ -22,7 +22,7 @@ my %WriteMakefileArgs = (
   "NAME" => "Business::OnlinePayment::CyberSource",
   "PREREQ_PM" => {
     "Business::CyberSource" => "0.009000",
-    "Business::CyberSource::Client" => 0,
+    "Business::CyberSource::Client" => "0.007006",
     "Business::OnlinePayment" => 0,
     "DateTime" => 0,
     "Exception::Base" => 0,
@@ -51,7 +51,7 @@ my %WriteMakefileArgs = (
     "Test::More" => 0,
     "version" => 0
   },
-  "VERSION" => "3.000008",
+  "VERSION" => "3.000012",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -60,7 +60,7 @@ my %WriteMakefileArgs = (
 
 my %FallbackPrereqs = (
   "Business::CyberSource" => "0.009000",
-  "Business::CyberSource::Client" => 0,
+  "Business::CyberSource::Client" => "0.007006",
   "Business::OnlinePayment" => 0,
   "Class::Load" => "0.20",
   "DateTime" => 0,

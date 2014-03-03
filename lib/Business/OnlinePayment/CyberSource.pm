@@ -13,7 +13,7 @@ use MooseX::Types::Moose qw(Bool HashRef Int);
 use MooseX::Types::Common::String qw(NonEmptySimpleStr);
 
 # ABSTRACT:  CyberSource backend for Business::OnlinePayment
-our $VERSION = '3.000008'; # VERSION
+our $VERSION = '3.000012'; # VERSION
 
 extends 'Business::OnlinePayment';
 
@@ -56,7 +56,7 @@ Business::OnlinePayment::CyberSource - CyberSource backend for Business::OnlineP
 
 =head1 VERSION
 
-version 3.000008
+version 3.000012
 
 =head1 SYNOPSIS
 
@@ -234,7 +234,7 @@ Peter Bowen <peter@bowenfamily.org>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2014 by Hostgator.com.
+This software is copyright (c) 2014 by L<HostGator.com|http://www.hostgator.com>.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.

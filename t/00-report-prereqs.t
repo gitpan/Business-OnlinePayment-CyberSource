@@ -58,7 +58,7 @@ my $static_prereqs = do { my $x = {
        'runtime' => {
                       'requires' => {
                                       'Business::CyberSource' => '0.009000',
-                                      'Business::CyberSource::Client' => '0',
+                                      'Business::CyberSource::Client' => '0.007006',
                                       'Business::OnlinePayment' => '0',
                                       'DateTime' => '0',
                                       'Exception::Base' => '0',
