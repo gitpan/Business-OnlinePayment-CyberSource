@@ -47,8 +47,8 @@ lib
 Business
 OnlinePayment
 CyberSource
-Client
 Role
+TransactionHandling
+Client
 InputHandling
 ErrorReporting
-TransactionHandling

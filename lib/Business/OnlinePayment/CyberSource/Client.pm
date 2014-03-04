@@ -15,7 +15,7 @@ use MooseX::Types::Moose qw(Bool HashRef Int Str);
 use MooseX::Types::Common::String qw(NonEmptySimpleStr);
 
 # ABSTRACT:  CyberSource Client object  for Business::OnlinePayment::CyberSource
-our $VERSION = '3.000012'; # VERSION
+our $VERSION = '3.000013'; # VERSION
 
 #### Subroutine Definitions ####
 
@@ -78,7 +78,7 @@ sub _authorize          {
 	return $request unless $request;
 
 	try {
-		my $response = $self->run_transaction( $request );
+		my $response = $self->submit( $request );
 
 		if ( $response->is_accept() ) {
 			$self->is_success( 1 );
@@ -146,7 +146,7 @@ sub capture            {
 	return $request unless $request;
 
 	try {
-		my $response      = $self->run_transaction( $request );
+		my $response      = $self->submit( $request );
 
 		if ( $response->is_accept() ) {
 			$self->is_success ( 1 );
@@ -207,7 +207,7 @@ sub credit             {
 	return $request unless $request;
 
 	try {
-		my $response      = $self->run_transaction( $request );
+		my $response      = $self->submit( $request );
 
 
 		if ( $response->is_accept() ) {
@@ -263,7 +263,7 @@ sub auth_reversal {
 	};
 
 	try {
-		my $response        = $self->run_transaction( $request );
+		my $response        = $self->submit( $request );
 
 		if ( $response->is_accept() ) {
 			$self->is_success ( 1 );
@@ -509,7 +509,7 @@ has _client => (
 	required  => 0,
 	predicate => 'has_client',
 	init_arg  => undef,
-	handles   => qr/^(?:run_transaction)$/x,
+	handles   => [ qw( submit ) ],
 	lazy      => 1,
 );
 
@@ -634,7 +634,7 @@ Business::OnlinePayment::CyberSource::Client - CyberSource Client object  for Bu
 
 =head1 VERSION
 
-version 3.000012
+version 3.000013
 
 =head1 SYNOPSIS
 
