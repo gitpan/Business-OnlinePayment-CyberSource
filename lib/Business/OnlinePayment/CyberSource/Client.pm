@@ -15,7 +15,7 @@ use MooseX::Types::Moose qw(Bool HashRef Int Str);
 use MooseX::Types::Common::String qw(NonEmptySimpleStr);
 
 # ABSTRACT:  CyberSource Client object  for Business::OnlinePayment::CyberSource
-our $VERSION = '3.000013'; # VERSION
+our $VERSION = '3.000014'; # VERSION
 
 #### Subroutine Definitions ####
 
@@ -87,15 +87,16 @@ sub _authorize          {
 			$self->set_error_message( $response->reason_text() );
 		}
 
-		$self->authorization( $response->auth->auth_code() )
-			if $response->auth->has_auth_code;
+		if ( $response->has_auth ) {
+		  $self->authorization( $response->auth->auth_code() )
+			  if $response->auth->has_auth_code;
 
-		$self->cvv2_response( $response->auth->cv_code() )
-			if $response->auth->has_cv_code();
+		  $self->cvv2_response( $response->auth->cv_code() )
+			  if $response->auth->has_cv_code();
 
-		$self->avs_code( $response->auth->avs_code() )
-			if $response->auth->has_avs_code;
-
+		  $self->avs_code( $response->auth->avs_code() )
+			  if $response->auth->has_avs_code;
+		}
 		$self->_fill_fields( $response );
 	}
 	catch {
@@ -634,7 +635,7 @@ Business::OnlinePayment::CyberSource::Client - CyberSource Client object  for Bu
 
 =head1 VERSION
 
-version 3.000013
+version 3.000014
 
 =head1 SYNOPSIS
 
