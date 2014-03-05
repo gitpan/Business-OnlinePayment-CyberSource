@@ -6,12 +6,12 @@
       "Peter Bowen <peter@bowenfamily.org>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 5.013, CPAN::Meta::Converter version 2.133380",
+   "generated_by" : "Dist::Zilla version 5.013, CPAN::Meta::Converter version 2.140630",
    "license" : [
       "perl_5"
    ],
    "meta-spec" : {
-      "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
+      "url" : "https://metacpan.org/pod/CPAN::Meta::Spec",
       "version" : "2"
    },
    "name" : "Business-OnlinePayment-CyberSource",
@@ -37,7 +37,7 @@
          "requires" : {
             "Business::CyberSource" : "0.009000",
             "Business::CyberSource::Client" : "0.007006",
-            "Business::OnlinePayment" : "0",
+            "Business::OnlinePayment" : "3",
             "DateTime" : "0",
             "Exception::Base" : "0",
             "Module::Runtime" : "0",
@@ -77,23 +77,23 @@
    "provides" : {
       "Business::OnlinePayment::CyberSource" : {
          "file" : "lib/Business/OnlinePayment/CyberSource.pm",
-         "version" : "3.000014"
+         "version" : "3.000015"
       },
       "Business::OnlinePayment::CyberSource::Client" : {
          "file" : "lib/Business/OnlinePayment/CyberSource/Client.pm",
-         "version" : "3.000014"
+         "version" : "3.000015"
       },
       "Business::OnlinePayment::CyberSource::Role::ErrorReporting" : {
          "file" : "lib/Business/OnlinePayment/CyberSource/Role/ErrorReporting.pm",
-         "version" : "3.000014"
+         "version" : "3.000015"
       },
       "Business::OnlinePayment::CyberSource::Role::InputHandling" : {
          "file" : "lib/Business/OnlinePayment/CyberSource/Role/InputHandling.pm",
-         "version" : "3.000014"
+         "version" : "3.000015"
       },
       "Business::OnlinePayment::CyberSource::Role::TransactionHandling" : {
          "file" : "lib/Business/OnlinePayment/CyberSource/Role/TransactionHandling.pm",
-         "version" : "3.000014"
+         "version" : "3.000015"
       }
    },
    "release_status" : "stable",
@@ -108,7 +108,7 @@
          "web" : "https://github.com/xenoterracide/business-onlinepayment-cybersource"
       }
    },
-   "version" : "3.000014",
+   "version" : "3.000015",
    "x_contributors" : [
       "Jad Wauthier <jadrien.wauthier@gmail.com>",
       "Jad Wauthier <jwauthier@cpan.org>",
