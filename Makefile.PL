@@ -41,7 +41,7 @@ my %WriteMakefileArgs = (
     "warnings" => 0
   },
   "TEST_REQUIRES" => {
-    "Class::Load" => "0.20",
+    "Crypt::SSLeay" => 0,
     "ExtUtils::MakeMaker" => 0,
     "File::Spec" => 0,
     "File::Spec::Functions" => 0,
@@ -51,7 +51,7 @@ my %WriteMakefileArgs = (
     "Test::More" => 0,
     "version" => 0
   },
-  "VERSION" => "3.000015",
+  "VERSION" => "3.000016",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -62,7 +62,7 @@ my %FallbackPrereqs = (
   "Business::CyberSource" => "0.009000",
   "Business::CyberSource::Client" => "0.007006",
   "Business::OnlinePayment" => 3,
-  "Class::Load" => "0.20",
+  "Crypt::SSLeay" => 0,
   "DateTime" => 0,
   "Exception::Base" => 0,
   "ExtUtils::MakeMaker" => 0,

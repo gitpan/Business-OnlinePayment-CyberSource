@@ -51,6 +51,7 @@ my $static_prereqs = do { my $x = {
        'develop' => {
                       'requires' => {
                                       'Pod::Coverage::TrustPod' => '0',
+                                      'Test::CPAN::Changes' => '0.19',
                                       'Test::Pod' => '1.41',
                                       'Test::Pod::Coverage' => '1.08'
                                     }
@@ -84,7 +85,7 @@ my $static_prereqs = do { my $x = {
                                      'CPAN::Meta::Requirements' => '2.120900'
                                    },
                    'requires' => {
-                                   'Class::Load' => '0.20',
+                                   'Crypt::SSLeay' => '0',
                                    'ExtUtils::MakeMaker' => '0',
                                    'File::Spec' => '0',
                                    'File::Spec::Functions' => '0',

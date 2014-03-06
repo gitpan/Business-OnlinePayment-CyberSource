@@ -5,7 +5,7 @@ author:
   - 'Caleb Cushing <xenoterracide@gmail.com>'
   - 'Peter Bowen <peter@bowenfamily.org>'
 build_requires:
-  Class::Load: '0.20'
+  Crypt::SSLeay: '0'
   ExtUtils::MakeMaker: '0'
   File::Spec: '0'
   File::Spec::Functions: '0'
@@ -17,7 +17,7 @@ build_requires:
 configure_requires:
   ExtUtils::MakeMaker: '6.30'
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 5.013, CPAN::Meta::Converter version 2.140630'
+generated_by: 'Dist::Zilla version 5.013, CPAN::Meta::Converter version 2.140640'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -29,19 +29,19 @@ no_index:
 provides:
   Business::OnlinePayment::CyberSource:
     file: lib/Business/OnlinePayment/CyberSource.pm
-    version: '3.000015'
+    version: '3.000016'
   Business::OnlinePayment::CyberSource::Client:
     file: lib/Business/OnlinePayment/CyberSource/Client.pm
-    version: '3.000015'
+    version: '3.000016'
   Business::OnlinePayment::CyberSource::Role::ErrorReporting:
     file: lib/Business/OnlinePayment/CyberSource/Role/ErrorReporting.pm
-    version: '3.000015'
+    version: '3.000016'
   Business::OnlinePayment::CyberSource::Role::InputHandling:
     file: lib/Business/OnlinePayment/CyberSource/Role/InputHandling.pm
-    version: '3.000015'
+    version: '3.000016'
   Business::OnlinePayment::CyberSource::Role::TransactionHandling:
     file: lib/Business/OnlinePayment/CyberSource/Role/TransactionHandling.pm
-    version: '3.000015'
+    version: '3.000016'
 requires:
   Business::CyberSource: '0.009000'
   Business::CyberSource::Client: '0.007006'
@@ -66,7 +66,7 @@ resources:
   bugtracker: https://github.com/xenoterracide/business-onlinepayment-cybersource/issues
   homepage: https://metacpan.org/dist/Business-OnlinePayment-CyberSource
   repository: git://github.com/xenoterracide/business-onlinepayment-cybersource.git
-version: '3.000015'
+version: '3.000016'
 x_contributors:
   - 'Jad Wauthier <jadrien.wauthier@gmail.com>'
   - 'Jad Wauthier <jwauthier@cpan.org>'
